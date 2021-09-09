@@ -23,6 +23,8 @@ class Board{
     void init(int);
     void print();
 
+    void addDistance(int, int);
+
     bool isValid(int, int);
 };
 

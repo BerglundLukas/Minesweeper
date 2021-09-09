@@ -7,7 +7,7 @@ int main(){
 
   Board board(10,10);
 
-  board.init(15);
+  board.init(10);
   board.print();
   
   cout << board.getSizeX() << ", " << board.getSizeY();

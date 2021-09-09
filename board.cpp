@@ -37,78 +37,26 @@ void Board::init(int mines){
     if(matrix[y][x] != 'm'){
       matrix[y][x] = 'm';
 
-      if(y >= 1){
-        if(matrix[y-1][x] != 'm' && matrix[y-1][x] != '2'){
-          matrix[y-1][x] = '1';
-        }
-        else if (matrix[y-1][x] = '1'){
-          matrix[y-1][x] = '2';
-        }
-      }
-      
-      if(x >= 1){
-        if(matrix[y][x-1] != 'm' && matrix[y][x-1] != '2'){
-          matrix[y][x-1] = '1';
-        }
-        else if (matrix[y][x-1] = '1'){
-          matrix[y][x-1] = '2';
-        }
-      }
+    addDistance(x-1, y);
+    addDistance(x, y-1);
+    addDistance(x-1, y-1);
+    addDistance(x+1, y);
+    addDistance(x, y+1);
+    addDistance(x+1, y+1);
+    addDistance(x+1, y-1);
+    addDistance(x-1, y+1);
+    }
+  }
+}
 
-      if(y >= 1 && x >= 1){
-        if(matrix[y-1][x-1] != 'm' && matrix[y-1][x-1] != '2'){
-          matrix[y-1][x-1] = '1';
-        }
-        else if (matrix[y-1][x-1] = '1'){
-          matrix[y-1][x-1] = '2';
-        }
+void Board::addDistance(int x, int y){
+  if(isValid(x,y)){
+    if(matrix[y][x] != 'm' && matrix[y][x] != '2'){
+      if (matrix[y][x] == '1'){
+        matrix[y][x] = '2';
       }
-
-      if(y < getSizeY()){
-        if(matrix[y+1][x] != 'm' && matrix[y+1][x] != '2'){
-          matrix[y+1][x] = '1';
-        }
-        else if (matrix[y+1][x] = '1'){
-          matrix[y+1][x] = '2';
-        }
-      }
-
-      if(y < getSizeY() && x < getSizeX()){
-        if(matrix[y+1][x+1] != 'm' && matrix[y+1][x+1] != '2'){
-          matrix[y+1][x+1] = '1';
-        }
-        else if (matrix[y+1][x+1] = '1'){
-          matrix[y+1][x+1] = '2';
-        }
-      }
-
-      if(x < getSizeX()){
-      if(matrix[y][x+1] != 'm' && matrix[y][x+1] != '2'){
-          matrix[y][x+1] = '1';
-        }
-        else if (matrix[y][x+1] = '1'){
-          matrix[y][x+1] = '2';
-        }
-      }
-
-      if(x >= 1 && y < getSizeY()){
-        matrix[y+1][x-1] = '1';
-
-        if(matrix[y+1][x-1] != 'm' && matrix[y+1][x-1] != '2'){
-          matrix[y+1][x-1] = '1';
-        }
-        else if (matrix[y+1][x-1] = '1'){
-          matrix[y+1][x-1] = '2';
-        }
-      }
-
-      if(x < getSizeX() && y >= 1){
-        if(matrix[y-1][x+1] != 'm' && matrix[y-1][x+1] != '2'){
-          matrix[y-1][x+1] = '1';
-        }
-        else if (matrix[y-1][x+1] = '1'){
-          matrix[y-1][x+1] = '2';
-        }
+      else{
+        matrix[y][x] = '1';
       }
     }
   }
@@ -125,7 +73,10 @@ void Board::print(){
 }
 
 bool Board::isValid(int x, int y){
-  
+  if(x < getSizeX() && x >= 0 && y < getSizeY() && y >= 0){
+    return true;
+  }
+  return false;
 }
 
 
