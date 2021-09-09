@@ -1,16 +1,15 @@
 #include <iostream>
 #include "include/board.h"
+#include "include/gamePlay.h"
 
 using namespace std;
 
 int main(){
-
-  Board board(10,10);
-
-  board.init(10);
-  board.print();
   
-  cout << board.getSizeX() << ", " << board.getSizeY();
+  GamePlay game(10, 10, 4);
 
+  game.runGame();
+
+  
   return 0;
 }

@@ -15,25 +15,27 @@ Board::Board(int sizex, int sizey)
 {
   
   matrix = new char* [sizeX];
+  matrixUser = new char* [sizeX];
   
   for(int i = 0; i < sizex; i++){
     matrix[i] = new char[sizey];
+    matrixUser[i] = new char[sizey];
   }
 
 }
 
 void Board::init(int mines){
-  for(int i=0; i < getSizeX(); i++){
-    for(int j=0; j < getSizeY(); j++){
-      matrix[i][j] = 'x';
+  for(int i=0; i < sizeX; i++){
+    for(int j=0; j < sizeY; j++){
+      matrix[i][j] = '0';
+      matrixUser[i][j] = 'x';
     }
   }
   int x, y = 0;
   for(int i = 0; i < mines; i++){
-    x = rand() % getSizeX();
-    y = rand() % getSizeY();
+    x = rand() % sizeX;
+    y = rand() % sizeY;
 
-    cout << x << ", " << y << endl;
     if(matrix[y][x] != 'm'){
       matrix[y][x] = 'm';
 
@@ -64,28 +66,25 @@ void Board::addDistance(int x, int y){
 
 
 void Board::print(){
-  for(int i=0; i < getSizeX(); i++){
-    for(int j=0; j < getSizeY(); j++){
-      cout << matrix[i][j] << " ";
+  cout << endl << "   ";
+  for(int a=0; a < sizeY; a++){
+    cout << a << " ";
+  }
+  cout << endl << endl;
+  for(int i=0; i < sizeX; i++){
+    cout << i << ": ";
+    for(int j=0; j < sizeY; j++){
+      cout << matrixUser[i][j] << " ";
     }
     cout << endl;
   }
 }
 
 bool Board::isValid(int x, int y){
-  if(x < getSizeX() && x >= 0 && y < getSizeY() && y >= 0){
+  if(x < sizeX && x >= 0 && y < sizeY && y >= 0){
     return true;
   }
   return false;
-}
-
-
-int Board::getSizeX(){
-  return sizeX;
-}
-
-int Board::getSizeY(){
-  return sizeY;
 }
 
 Board::~Board(){}

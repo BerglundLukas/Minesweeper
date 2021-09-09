@@ -8,23 +8,18 @@ class Board{
     int sizeX;
     int sizeY;
 
-    
-
   public:
 
     char** matrix;
+    char** matrixUser;
 
     Board(int sizeX, int sizeY);
     ~Board();
-
-    int getSizeX();
-    int getSizeY();
-
+    
     void init(int);
     void print();
 
     void addDistance(int, int);
-
     bool isValid(int, int);
 };
 
