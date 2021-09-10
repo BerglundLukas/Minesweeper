@@ -7,20 +7,29 @@ class Board{
 
     int sizeX;
     int sizeY;
-
-  public:
+    int mines;
 
     char** matrix;
     char** matrixUser;
 
-    Board(int sizeX, int sizeY);
+  public:
+
+
+
+    Board(int sizeX, int sizeY, int mines);
     ~Board();
     
-    void init(int);
+    void init();
     void print();
 
     void addDistance(int, int);
     bool isValid(int, int);
+
+    char** getMatrix();
+    char** getMatrixUser();
+
+    bool checkMove(int, int);
+    void checkNeighboursRec(int, int, int);
 };
 
 #endif

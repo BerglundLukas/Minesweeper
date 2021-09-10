@@ -10,8 +10,8 @@ int add(int a, int b){
   return a + b;
 }
 
-Board::Board(int sizex, int sizey)
-    :sizeX{sizex}, sizeY{sizey}
+Board::Board(int sizex, int sizey, int minesIn)
+    :sizeX{sizex}, sizeY{sizey}, mines{minesIn}
 {
   
   matrix = new char* [sizeX];
@@ -24,7 +24,7 @@ Board::Board(int sizex, int sizey)
 
 }
 
-void Board::init(int mines){
+void Board::init(){
   for(int i=0; i < sizeX; i++){
     for(int j=0; j < sizeY; j++){
       matrix[i][j] = '0';
@@ -64,7 +64,6 @@ void Board::addDistance(int x, int y){
   }
 }
 
-
 void Board::print(){
   cout << endl << "   ";
   for(int a=0; a < sizeY; a++){
@@ -85,6 +84,48 @@ bool Board::isValid(int x, int y){
     return true;
   }
   return false;
+}
+
+bool Board::checkMove(int x, int y){
+  if(matrix[y][x] == 'm'){
+    return false;
+  }
+  checkNeighboursRec(x, y, 1);
+  checkNeighboursRec(x, y, 2);
+  checkNeighboursRec(x, y, 3);
+  checkNeighboursRec(x, y, 4);
+
+  return true;
+}
+
+void Board::checkNeighboursRec(int x, int y, int dir){
+
+  if(isValid(x, y)){
+    if(matrix[y][x] == '0'){
+
+      if(dir == 1){
+        checkNeighboursRec(x-1, y, dir);
+        checkNeighboursRec(x, y-1, dir);
+        checkNeighboursRec(x+1, y-1, dir);
+      }
+      else if(dir == 2){
+        checkNeighboursRec(x+1, y, dir);
+        checkNeighboursRec(x, y+1, dir);
+        checkNeighboursRec(x+1, y-1, dir);
+      }
+      else if(dir == 3){
+        checkNeighboursRec(x+1, y, dir);
+        checkNeighboursRec(x, y+1, dir);
+        checkNeighboursRec(x-1, y+1, dir);
+      }
+      else{
+        checkNeighboursRec(x-1, y, dir);
+        checkNeighboursRec(x, y-1, dir);
+        checkNeighboursRec(x-1, y+1, dir);
+      }
+    }
+    matrixUser[y][x] = matrix[y][x];
+  }
 }
 
 Board::~Board(){}
